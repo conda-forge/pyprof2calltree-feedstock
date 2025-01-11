@@ -6,11 +6,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: a635672ff31677486350b2be9a823ef92f740e6354a6aeda8fa4a8a3768e8f2f
 
 build:
-  number: 0
+  number: 1
   noarch: python
   entry_points:
     - pyprof2calltree = pyprof2calltree:main
@@ -19,13 +19,15 @@ build:
 requirements:
   host:
     - pip
-    - python
+    - python {{ python_min }}
     - setuptools
   run:
-    - python
+    - python >={{ python_min }}
     - setuptools
 
 test:
+  requires:
+    - python {{ python_min }}
   commands:
     - pyprof2calltree --help
 
